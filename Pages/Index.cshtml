@@ -1,0 +1,64 @@
+﻿@page
+@model OffsetPyramidApp.Pages.IndexModel
+
+<h1>Layered Offset Pyramid Calculator</h1>
+
+<form method="post">
+
+    <div asp-validation-summary="All" style="color:red;"></div>
+
+    @for (int i = 0; i < Model.Layers.Count; i++)
+    {
+        <div style="border:1px solid #999; padding:10px; margin-bottom:10px;">
+            <h4>Layer @(i + 1)</h4>
+
+            <label>Base Length:</label>
+            <input asp-for="Layers[@i].BaseLength" type="number" step="any" />
+            <br />
+
+            <label>Top Length:</label>
+            <input asp-for="Layers[@i].TopLength" type="number" step="any" />
+            <br />
+
+            <label>Height:</label>
+            <input asp-for="Layers[@i].Height" type="number" step="any" />
+            <br />
+
+            <label>Offset X:</label>
+            <input asp-for="Layers[@i].OffsetX" type="number" step="any" />
+
+            <label>Offset Y:</label>
+            <input asp-for="Layers[@i].OffsetY" type="number" step="any" />
+
+            <br /><br />
+
+            <!-- REMOVE BUTTON -->
+            <button type="submit"
+                    asp-page-handler="RemoveLayer"
+                    asp-route-index="@i">
+                Remove
+            </button>
+        </div>
+    }
+
+    <!-- ADD BUTTON -->
+    <button type="submit" asp-page-handler="AddLayer">
+        Add Layer
+    </button>
+
+    <br /><br />
+
+    <!-- CALCULATE BUTTON -->
+    <button type="submit" asp-page-handler="Calculate">
+        Calculate Total Volume
+    </button>
+</form>
+
+@if (Model.TotalVolume > 0)
+{
+    <h2>Total Volume: @Model.TotalVolume</h2>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
