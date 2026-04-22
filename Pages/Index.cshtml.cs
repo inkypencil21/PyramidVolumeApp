@@ -17,7 +17,7 @@ public class IndexModel : PageModel
         {
             Layers = new List<PyramidLayer>
             {
-                new(), new(), new()
+                new()
             };
         }
     }
